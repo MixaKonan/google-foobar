@@ -1,18 +1,36 @@
 def solution(src, dest):
-    if isStraightAdjacent(src, dest):
-        return 3
+    src = (int(src / 8), src % 8)
+    dest = (int(dest / 8), dest % 8)
+    visited = {}
+    moves = []
+    dive(src, dest, visited, 0, moves)
+    return min(moves)
+
+
+def dive(src, dest, visited, move, moves):
+    current_visited = dict(visited)
+    if len(moves) > 0 and move > min(moves):
+        return
+
+    if src == dest:
+        if move not in moves:
+            moves.append(move)
+        return
     
-    if isDiagonalAdjacent(src, dest):
-        return 4
+    if src[0] < 0 or src[0] > 7 or src[1] < 0 or src[1] > 7:
+        return
     
-    
-def isStraightAdjacent(src, dest):
-    return src - 1 == dest or src + 1 == dest or src + 8 == dest or src - 8 == dest
+    if src in current_visited:
+        return
+
+    current_visited[src] = True
+
+    return [dive((src[0] - 2, src[1] - 1), dest, current_visited, move + 1, moves), dive((src[0] - 2, src[1] + 1), dest, current_visited, move + 1, moves),
+            dive((src[0] - 1, src[1] - 2), dest, current_visited, move + 1, moves), dive((src[0] - 1, src[1] + 2), dest, current_visited, move + 1, moves),
+            dive((src[0] + 1, src[1] - 2), dest, current_visited, move + 1, moves), dive((src[0] + 1, src[1] + 2), dest, current_visited, move + 1, moves),
+            dive((src[0] + 2, src[1] - 1), dest, current_visited, move + 1, moves), dive((src[0] + 2, src[1] + 1), dest, current_visited, move + 1, moves)]
 
 
-def isDiagonalAdjacent(src, dest):
-     return src - 7 == dest or src + 7 == dest or src + 9 == dest or src - 9 == dest
-
-
+print(solution(19, 36))
 print(solution(0, 1))
-print(solution(0, 9))
+print(solution(0, 63))
