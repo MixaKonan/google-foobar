@@ -1,30 +1,23 @@
 def solution(l):
-    first_pivot, triplets = 0, []
-    
-    while first_pivot < len(l) - 2:
-        second_pivot = first_pivot + 1
-        while second_pivot < len(l) - 1:
-            third_pivot = second_pivot + 1
-            while third_pivot < len(l):
-                first = l[first_pivot]
-                second = l[second_pivot]
-                third = l[third_pivot]
-                
-                if isLuckyTriplet(first, second, third):
-                    triplets.append((first, second, third))
-                
-                third_pivot += 1
-            second_pivot += 1
-        first_pivot += 1
+    count = 0
+    for index in range(0, len(l)):
+        count += findTripletsCount(index, l)
+
+    return count
         
-    return triplets
 
-
-def isLuckyTriplet(first, second, third):
-    return third % second == 0 and second % first == 0 
+def findTripletsCount(first_index, l):
+    count = 0
+    first = l[first_index]
+    dividends_of_first = [num for num in l[first_index + 1:] if num % first == 0]
+    for second_index, second in enumerate(dividends_of_first):
+        dividends_of_second = [num for num in dividends_of_first[second_index + 1:] if num % second == 0]
+        count += len(dividends_of_second)
+        
+    return count
 
 print(solution([1, 1, 1]))
 print(solution([1, 2, 3, 4, 5, 6]))
-print(solution([1, 9, 10, 14, 18, 27]))
-print(solution([1, 2]))
-print(solution([x for x in range(1, 20)]))
+print(solution([1, 2, 8, 9, 10, 14, 16, 18, 27]))
+print(solution([1, 2, 7, 13, 17, 23]))
+print(solution([]))
