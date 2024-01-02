@@ -16,8 +16,10 @@ def findTripletsCount(first_index, l):
         
     return count
 
-print(solution([1, 1, 1]))
-print(solution([1, 2, 3, 4, 5, 6]))
-print(solution([1, 2, 8, 9, 10, 14, 16, 18, 27]))
-print(solution([1, 2, 7, 13, 17, 23]))
-print(solution([]))
+# print(solution([1, 1, 1]))
+# print(solution([1, 2, 3, 4, 5, 6]))
+# print(solution([1, 2, 8, 9, 10, 14, 16, 18, 27]))
+# print(solution([1, 2, 7, 13, 17, 23]))
+# print(solution([]))
+
+print(solution([x for x in range(2, 9999)]))
