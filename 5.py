@@ -1,24 +1,15 @@
 def solution(n):
-    num = int(n)
-    counts = []
+    n = int(n)
+    steps = 0
+    while n > 1:
+        if n & 1 == 0:
+            n >>= 1
+        elif n == 3 or ((n >> 1) & 1 == 0):
+            n -= 1
+        else:
+            n += 1
+        steps += 1
     
-    dive(num, 0, counts)
+    return steps
 
-    return min(counts)
-
-
-def dive(n, currentCount, counts):
-    if len(counts) > 0 and currentCount >= min(counts):
-        return
-
-    if n == 1:
-        counts.append(currentCount)
-        return
-
-    return [dive(n / 2 if n % 2 == 0 else n + 1, currentCount + 1, counts),
-            dive(n / 2 if n % 2 == 0 else n - 1, currentCount + 1, counts)]
-
-
-# print(solution('15'))
-# print(solution('4'))
-print(solution('199'))
+print(solution(10**308 - 1))
